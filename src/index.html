@@ -11,18 +11,37 @@
       crossorigin="anonymous"
     />
     <link rel="shortcut icon" href="./4geeks.ico" />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container-fluid text-center">
-      <h1 class="mt-5">Hello Rigo!</h1>
-      <img src="./rigo-baby.jpg" />
-      <p class="alert alert-warning mt-4">
-        If this text is <b>not</b> centered and <b>yellow</b>, you probably have
-        an error
-      </p>
-      <div class="fixed-bottom p-4">
-        Made with ❤️ by
-        <a href="https://www.4geeksacademy.com">4Geeks Academy</a>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="opciones d-flex d-flex-inline">
+          <input type="text" class="form-control m-2" id="numCards" />
+          <button id="btnDraw" type="button" class="btn btn-primary m-2">
+            Draw
+          </button>
+          <button id="btnSort" type="button" class="btn btn-primary m-2">
+            Sort
+          </button>
+        </div>
+
+        <div class="col-12">
+          <div id="cartasArriba" class="row justify-content-start">
+            <!--Fila de arriba, aqui se guardan las cartas generadas aleatoriamente en tiempo de ejecucion.-->
+          </div>
+        </div>
+
+        <div class="col-12">
+          <h1 id="sortMessage" class="display-2">Bubble sort log.</h1>
+        </div>
+
+        <div class="col-12">
+          <div id="cartasAbajo" class="row justify-content-start">
+            <!--Fila de abajo, aqui se guardan las cartas generadas aleatoriamente en tiempo de ejecucion.-->
+          </div>
+        </div>
+        <div class="cartasAbajo col-12"></div>
       </div>
     </div>
   </body>

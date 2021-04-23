@@ -1,1 +1,30 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
+body {
+  background-color: #0b9532;
+}
+
+.card {
+  background-color: white;
+  height: 300px;
+  max-width: 200px;
+  border-radius: 10px;
+  font-size: 45px;
+}
+
+#paloRotado {
+  transform: rotate(180deg);
+}
+
+.numero {
+  font-size: 70px;
+  font-weight: bold;
+}
+
+.rojo {
+  color: red;
+}
+
+#sortMessage {
+  color: white;
+  display: none;
+}
