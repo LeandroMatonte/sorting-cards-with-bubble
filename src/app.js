@@ -7,13 +7,24 @@ import "./assets/img/4geeks.ico";
 
 window.onload = function() {
   let palo = ["♣", "♦", "♥", "♠"];
-  let numero = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
+  let numero = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
 
   function crearCarta(numero, palo, color, seccion) {
-    if (numero == 1) {
-      numero = "A";
+    switch (numero) {
+      case "1":
+        numero = "A";
+        break;
+      case "11":
+        numero = "J";
+        break;
+      case "12":
+        numero = "Q";
+        break;
+      case "13":
+        numero = "K";
+        break;
     }
-    seccion.innerHTML += `<div class="col-2">
+    seccion.innerHTML += `<div class="col-sm-6 col-md-2">
               <div class="card shadow mt-3 text-center">
                 <div class="col-4 d-flex">
                   <p class="palo${color}">${palo}</p>
@@ -37,12 +48,12 @@ window.onload = function() {
 
   //evento pedir nuevas cartas (boton Draw)
   //cartasArribaGuardadas arreglo con dos arreglos, primer columna de numeros y segunda columna de Char
-  var cartasArribaGuardadas = [[], []];
+  var cartasArribaGuardadas = [];
   let btnDraw = document.querySelector("#btnDraw");
   btnDraw.addEventListener("click", () => {
     //vacio las cartas y el arreglo cartasArribaGuardadas
     cartasArriba.innerHTML = "";
-    cartasArribaGuardadas = [[], []];
+    cartasArribaGuardadas = [];
     let numCards = document.querySelector("#numCards").value;
     if (numCards != 0 && numCards <= 12) {
       while (numCards > 0) {
@@ -54,18 +65,17 @@ window.onload = function() {
         }
 
         //si es un numero lo guardo en la primer posicion del arreglo cartasArribaGuardadas y si es una letra en la segunda posicion
-        if (typeof numeroCard != "number") {
-          cartasArribaGuardadas[1].push([numeroCard, paloCard, color]);
-        } else {
-          cartasArribaGuardadas[0].push([numeroCard, paloCard, color]);
-        }
-        crearCarta(numeroCard, paloCard, color, cartasArriba);
+        cartasArribaGuardadas.push([numeroCard, paloCard, color]);
+
+        //creo la carta random y la agrego al div
+        crearCarta(numeroCard.toString(), paloCard, color, cartasArriba);
         numCards--;
       }
     }
+    console.log(cartasArribaGuardadas);
   });
 
-  //funcion sort
+  //bubble sort
   const bubbleSort = arr => {
     let wall = arr.length - 1; //we start the wall at the end of the array
     while (wall > 0) {
@@ -84,26 +94,20 @@ window.onload = function() {
     return arr;
   };
 
-  //evento ordenar cartas (boton Sort)
+  //evento ordenar cartas (boton Bubble sort)
   let btnSort = document.querySelector("#btnSort");
 
   btnSort.addEventListener("click", () => {
+    sortMessage.innerHTML = "Bubble sort log";
     sortMessage.style.display = "block";
     cartasAbajo.innerHTML = "";
 
     //ordenar numeros
-    cartasArribaGuardadas[0] = bubbleSort(cartasArribaGuardadas[0]);
-    //ordenar letras
-    cartasArribaGuardadas[1] = bubbleSort(cartasArribaGuardadas[1]);
+    cartasArribaGuardadas = bubbleSort(cartasArribaGuardadas);
 
-    //generar cartas de numeros ordenadas
-    cartasArribaGuardadas[0].forEach(elem => {
+    //generar cartas
+    cartasArribaGuardadas.forEach(elem => {
       crearCarta(elem[0].toString(), elem[1], elem[2], cartasAbajo);
-    });
-
-    //generar cartas de letras ordenadas
-    cartasArribaGuardadas[1].forEach(elem => {
-      crearCarta(elem[0], elem[1], elem[2], cartasAbajo);
     });
   });
 };
